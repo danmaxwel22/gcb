@@ -1,4 +1,6 @@
-(function() {
+$(function() {
+    
+  (function() {
     (function() {
       var ANIM_DELAY, ANIM_DURATION, BAR_HEIGHT, COLORS, COLORS_G, DATA, H, INITIAL_WIDTH, M, MAX_VALUE, NAME, TOTAL_VALUE, W, container, g, highlight, highlightClear, host, oH, oW, percentScale, randomize, resize, svg, update, xScale, yScale;
       NAME = 'horizontal-bar';
@@ -368,4 +370,9 @@
     })(window);
   
 }).call(this);
+
+});
+
+
+
   
