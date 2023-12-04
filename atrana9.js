@@ -125,6 +125,9 @@ function loadLibraries(index) {
       var urlParamsGC = new URLSearchParams(window.location.search);
       var sValueGC = urlParamsGC.get('p');
       var rValueGC = urlParamsGC.get('r');
+        console.log(urlParamsGC);
+        console.log(sValueGC);
+        console.log(rValueGC);
 
       if(!sValueGC) { 
         sValueGC = 1; 
