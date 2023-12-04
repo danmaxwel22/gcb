@@ -21,27 +21,30 @@ function loadLibraries(index) {
             loadLibraries(index + 1);
         });
     } else {
-        // All libraries are loaded, your code using libraries can go here
-        $(document).ready(function() {
-            
-  function getQueryParams(url) {
-    var params = {};
-    var queryString = url.split('?')[1];
-console.log(url)
-      console.log(queryString)
-    if (queryString) {
-        var paramPairs = queryString.split('&');
+       $(function() {
 
-        for (var i = 0; i < paramPairs.length; i++) {
-            var pair = paramPairs[i].split('=');
-            var key = decodeURIComponent(pair[0]);
-            var value = decodeURIComponent(pair[1] || '');
-
-            params[key] = value;
+  function getParameterValue(url, paramName) {
+    var urlParts = url.split('?');
+      console.log(urlParts)
+    
+    if (urlParts.length > 1) {
+        var queryParams = urlParts[1].split('&');
+      console.log(queryParams.length)
+      console.log(urlParts[0])
+      console.log(urlParts[1])
+        console.log(urlParts[2])
+        for (var i = 0; i < queryParams.length; i++) {
+            var param = queryParams[i].split('=');
+            console.log("param: " + param[0])
+            if (param[0] === paramName) {
+                console.log("decodeURIComponent: " + decodeURIComponent(param[1]))
+                return decodeURIComponent(param[1]);
+                
+            }
         }
     }
-
-    return params;
+      console.log("nullis")
+    return null;
 }
 
 function removeQueryParams(url, paramsToRemove) {
@@ -166,11 +169,10 @@ function removeQueryParams(url, paramsToRemove) {
 
       var currentUrl = window.location.href;
 
-var queryParams = getQueryParams(currentUrl);
-        console.log(queryParams)
-      var sValueGC = queryParams['p'];
-      var rValueGC = queryParams['r'];
-
+      var sValueGC = getParameterValue(currentUrl, 'p');;
+      var rValueGC = getParameterValue(currentUrl, 'r');;
+        console.log(sValueGC)
+      
       if(!sValueGC) { 
         sValueGC = 1; 
       }
@@ -178,7 +180,8 @@ var queryParams = getQueryParams(currentUrl);
       if(rValueGC) { 
         DATA = DATA_designer;
       }
-console.log(sValueGC)
+
+      console.log(sValueGC)
       var pageGC = sValueGC;
 
       var itemsPerPageGC = 7;
@@ -429,7 +432,8 @@ console.log(sValueGC)
   
 }).call(this);
 
-            });
+});
+
     }
 }
 
