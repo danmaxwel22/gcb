@@ -25,8 +25,7 @@ function loadLibraries(index) {
         $(document).ready(function() {
             
             $(function() {
-
-  function getQueryParams(url) {
+function getQueryParams(url) {
     var params = {};
     var queryString = url.split('?')[1];
 
@@ -413,7 +412,7 @@ var queryParams = getQueryParams(currentUrl);
   
 }).call(this);
 
-});
+            });
     }
 }
 
