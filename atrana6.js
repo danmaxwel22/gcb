@@ -1,16 +1,71 @@
-var scriptElement = document.createElement('script');
+function loadScript(src, callback) {
+    var scriptElement = document.createElement('script');
+    scriptElement.src = src;
+    document.head.appendChild(scriptElement);
+    scriptElement.onload = callback;
+}
 
-// Set the source attribute to the local jQuery file
-scriptElement.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js';
+// List of library URLs
+var libraryUrls = [
+    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js'
+    // Add more library URLs as needed
+];
 
-// Append the script element to the head tag
-document.head.appendChild(scriptElement);
+// Function to load libraries sequentially
+function loadLibraries(index) {
+    if (index < libraryUrls.length) {
+        loadScript(libraryUrls[index], function() {
+            // Continue loading the next library
+            loadLibraries(index + 1);
+        });
+    } else {
+        // All libraries are loaded, your code using libraries can go here
+        $(document).ready(function() {
+            
+  function getQueryParams(url) {
+    var params = {};
+    var queryString = url.split('?')[1];
+console.log(url)
+      console.log(queryString)
+    if (queryString) {
+        var paramPairs = queryString.split('&');
 
-// Wait for jQuery to load before using it
-scriptElement.onload = function() {
-    // Your JavaScript code using jQuery
-    $(document).ready(function() {
-        (function() {
+        for (var i = 0; i < paramPairs.length; i++) {
+            var pair = paramPairs[i].split('=');
+            var key = decodeURIComponent(pair[0]);
+            var value = decodeURIComponent(pair[1] || '');
+
+            params[key] = value;
+        }
+    }
+
+    return params;
+}
+
+function removeQueryParams(url, paramsToRemove) {
+  var urlParts = url.split('?');
+    
+  if (urlParts.length > 1) {
+      var baseUrl = urlParts[0];
+      
+      var queryParams = urlParts[1].split('&');
+
+      var filteredParams = queryParams.filter(function(param) {
+          var paramName = param.split('=')[0];
+          return !paramsToRemove.includes(paramName);
+      });
+      var newQueryString = filteredParams.join('&');
+
+      var newURL = baseUrl + (newQueryString ? '?' + newQueryString : '');
+
+      return newURL;
+  }
+  return url;
+}
+    
+  (function() {
     (function() {
       var ANIM_DELAY, ANIM_DURATION, BAR_HEIGHT, COLORS, COLORS_G, DATA, H, INITIAL_WIDTH, M, MAX_VALUE, NAME, TOTAL_VALUE, W, container, g, highlight, highlightClear, host, oH, oW, percentScale, randomize, resize, svg, update, xScale, yScale;
       NAME = 'horizontal-bar';
@@ -108,9 +163,13 @@ scriptElement.onload = function() {
         },
       ]
 
-      var urlParamsGC = new URLSearchParams(window.location.search);
-      var sValueGC = urlParamsGC.get('p');
-      var rValueGC = urlParamsGC.get('r');
+
+      var currentUrl = window.location.href;
+
+var queryParams = getQueryParams(currentUrl);
+        console.log(queryParams)
+      var sValueGC = queryParams['p'];
+      var rValueGC = queryParams['r'];
 
       if(!sValueGC) { 
         sValueGC = 1; 
@@ -119,7 +178,7 @@ scriptElement.onload = function() {
       if(rValueGC) { 
         DATA = DATA_designer;
       }
-
+console.log(sValueGC)
       var pageGC = sValueGC;
 
       var itemsPerPageGC = 7;
@@ -130,12 +189,9 @@ scriptElement.onload = function() {
 
       DATA = DATA.slice(startIndexGC, startIndexGC + itemsPerPageGC);
 
-      var currentUrl = window.location.href;
-
 
       if(sValueGC == 1) {
         $("#gc-prev").prop('disabled', true);
-        console.log("sValueGC")
       }
       
       if(sValueGC >= totalPages) {
@@ -145,39 +201,31 @@ scriptElement.onload = function() {
 
       $(document).on("click", ".fab-container .sub-button", function(){
         var updatedUrlGC =  currentUrl;
-        var pn;
+        var pn, updatedUrl;
         switch($(this).attr("id")) {
           case "gc-user-role":
-            var urlParams = new URLSearchParams(new URL(currentUrl).search);
-            urlParams.forEach(function(value, key) {
-                urlParams.delete(key);
-            });
-
-            var updatedUrl = new URL(currentUrl);
-            updatedUrl.search = '';
-            updatedUrlGC = updatedUrl.href;
+            updatedUrl = removeQueryParams(currentUrl, ['p']);
+            updatedUrl = removeQueryParams(updatedUrl, ['r']);
+            updatedUrlGC = updatedUrl;
             if(!rValueGC) { 
               updatedUrlGC = updatedUrlGC + "?r=d";
             }
             break;
           case "gc-next":
             pn = +(sValueGC) + 1;
-            urlParamsGC.set('p', pn++);
-
-            updatedUrlGC = new URL(currentUrl);
-            updatedUrlGC.search = urlParamsGC.toString();
+            updatedUrl = removeQueryParams(currentUrl, ['p']);
+            updatedUrlGC = updatedUrl + "?p=" + pn++;
             break;
           case "gc-prev":
             pn = +(sValueGC) - 1;
-            urlParamsGC.set('p', pn);
-
-            updatedUrlGC = new URL(currentUrl);
-            updatedUrlGC.search = urlParamsGC.toString();
+            updatedUrl = removeQueryParams(currentUrl, ['p']);
+            updatedUrlGC = updatedUrl;
             break;
           default:
             break;
         }
 
+        console.log(updatedUrlGC)
         window.location.href = updatedUrlGC;
       });
       
@@ -380,5 +428,10 @@ scriptElement.onload = function() {
     })(window);
   
 }).call(this);
-    });
-};
+
+            });
+    }
+}
+
+// Start loading libraries from index 0
+loadLibraries(0);
