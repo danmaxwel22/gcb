@@ -21,32 +21,47 @@ function loadLibraries(index) {
             loadLibraries(index + 1);
         });
     } else {
-        // All libraries are loaded, your code using libraries can go here
-        $(document).ready(function() {
-            
-function getQueryParams(url) {
-    var params = {};
-    var queryString = url.split('?')[1];
+       $(function() {
 
-    if (queryString) {
-        var paramPairs = queryString.split('&');
-
-        for (var i = 0; i < paramPairs.length; i++) {
-            var pair = paramPairs[i].split('=');
-            var key = decodeURIComponent(pair[0]);
-            var value = decodeURIComponent(pair[1] || '');
-
-            params[key] = value;
+  function getParameterValue(url, paramName) {
+    var urlParts = url.split('?');
+      console.log(urlParts)
+    
+    if (urlParts.length > 1) {
+        var queryParams = urlParts[1].split('&');
+console.log("queryParams": + queryParams)
+        for (var i = 0; i < queryParams.length; i++) {
+            var param = queryParams[i].split('=');
+            console.log("param: " + param)
+            if (param[0] === paramName) {
+                console.log("decodeURIComponent: " + decodeURIComponent(param[1]))
+                return decodeURIComponent(param[1]);
+                
+            }
         }
     }
-
-    return params;
+    return null;
 }
 
-function removeQueryParams(url) {
+function removeQueryParams(url, paramsToRemove) {
   var urlParts = url.split('?');
-  var baseUrl = urlParts[0];
-  return baseUrl;
+    
+  if (urlParts.length > 1) {
+      var baseUrl = urlParts[0];
+      
+      var queryParams = urlParts[1].split('&');
+
+      var filteredParams = queryParams.filter(function(param) {
+          var paramName = param.split('=')[0];
+          return !paramsToRemove.includes(paramName);
+      });
+      var newQueryString = filteredParams.join('&');
+
+      var newURL = baseUrl + (newQueryString ? '?' + newQueryString : '');
+
+      return newURL;
+  }
+  return url;
 }
     
   (function() {
@@ -150,10 +165,10 @@ function removeQueryParams(url) {
 
       var currentUrl = window.location.href;
 
-var queryParams = getQueryParams(currentUrl);
-      var sValueGC = queryParams['p'];
-      var rValueGC = queryParams['r'];
-
+      var sValueGC = getParameterValue(currentUrl, 'p');;
+      var rValueGC = getParameterValue(currentUrl, 'r');;
+        console.log(sValueGC)
+      
       if(!sValueGC) { 
         sValueGC = 1; 
       }
@@ -162,6 +177,7 @@ var queryParams = getQueryParams(currentUrl);
         DATA = DATA_designer;
       }
 
+      console.log(sValueGC)
       var pageGC = sValueGC;
 
       var itemsPerPageGC = 7;
@@ -175,7 +191,6 @@ var queryParams = getQueryParams(currentUrl);
 
       if(sValueGC == 1) {
         $("#gc-prev").prop('disabled', true);
-        console.log("sValueGC")
       }
       
       if(sValueGC >= totalPages) {
@@ -188,7 +203,8 @@ var queryParams = getQueryParams(currentUrl);
         var pn, updatedUrl;
         switch($(this).attr("id")) {
           case "gc-user-role":
-          updatedUrl = removeQueryParams(currentUrl);
+            updatedUrl = removeQueryParams(currentUrl, ['p']);
+            updatedUrl = removeQueryParams(updatedUrl, ['r']);
             updatedUrlGC = updatedUrl;
             if(!rValueGC) { 
               updatedUrlGC = updatedUrlGC + "?r=d";
@@ -196,18 +212,19 @@ var queryParams = getQueryParams(currentUrl);
             break;
           case "gc-next":
             pn = +(sValueGC) + 1;
-            updatedUrl = removeQueryParams(currentUrl);
+            updatedUrl = removeQueryParams(currentUrl, ['p']);
             updatedUrlGC = updatedUrl + "?p=" + pn++;
             break;
           case "gc-prev":
             pn = +(sValueGC) - 1;
-            updatedUrl = removeQueryParams(currentUrl);
-            updatedUrlGC = updatedUrl + "?p=" + pn--;
+            updatedUrl = removeQueryParams(currentUrl, ['p']);
+            updatedUrlGC = updatedUrl;
             break;
           default:
             break;
         }
 
+        console.log(updatedUrlGC)
         window.location.href = updatedUrlGC;
       });
       
@@ -411,7 +428,8 @@ var queryParams = getQueryParams(currentUrl);
   
 }).call(this);
 
-            });
+});
+
     }
 }
 
