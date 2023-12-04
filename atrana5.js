@@ -163,6 +163,7 @@ function removeQueryParams(url, paramsToRemove) {
 
       var sValueGC = getParameterValue(currentUrl, 'p');;
       var rValueGC = getParameterValue(currentUrl, 'r');;
+        console.log(sValueGC)
       
       if(!sValueGC) { 
         sValueGC = 1; 
