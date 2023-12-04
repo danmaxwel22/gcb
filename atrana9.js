@@ -24,7 +24,6 @@ function loadLibraries(index) {
         // All libraries are loaded, your code using libraries can go here
         $(document).ready(function() {
             
-            $(function() {
 function getQueryParams(url) {
     var params = {};
     var queryString = url.split('?')[1];
