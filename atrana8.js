@@ -8,8 +8,8 @@ function loadScript(src, callback) {
 // List of library URLs
 var libraryUrls = [
     'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js',
-    'URL_OF_YOUR_FIRST_ADDITIONAL_LIBRARY',
-    'URL_OF_YOUR_SECOND_ADDITIONAL_LIBRARY'
+    'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js'
     // Add more library URLs as needed
 ];
 
@@ -23,8 +23,33 @@ function loadLibraries(index) {
     } else {
         // All libraries are loaded, your code using libraries can go here
         $(document).ready(function() {
-            console.log("$", window.jQuery);
-            (function() {
+            
+function getQueryParams(url) {
+    var params = {};
+    var queryString = url.split('?')[1];
+
+    if (queryString) {
+        var paramPairs = queryString.split('&');
+
+        for (var i = 0; i < paramPairs.length; i++) {
+            var pair = paramPairs[i].split('=');
+            var key = decodeURIComponent(pair[0]);
+            var value = decodeURIComponent(pair[1] || '');
+
+            params[key] = value;
+        }
+    }
+
+    return params;
+}
+
+function removeQueryParams(url) {
+  var urlParts = url.split('?');
+  var baseUrl = urlParts[0];
+  return baseUrl;
+}
+    
+  (function() {
     (function() {
       var ANIM_DELAY, ANIM_DURATION, BAR_HEIGHT, COLORS, COLORS_G, DATA, H, INITIAL_WIDTH, M, MAX_VALUE, NAME, TOTAL_VALUE, W, container, g, highlight, highlightClear, host, oH, oW, percentScale, randomize, resize, svg, update, xScale, yScale;
       NAME = 'horizontal-bar';
@@ -122,9 +147,12 @@ function loadLibraries(index) {
         },
       ]
 
-      var urlParamsGC = new URLSearchParams(window.location.search);
-      var sValueGC = urlParamsGC.get('p');
-      var rValueGC = urlParamsGC.get('r');
+
+      var currentUrl = window.location.href;
+
+var queryParams = getQueryParams(currentUrl);
+      var sValueGC = queryParams['p'];
+      var rValueGC = queryParams['r'];
 
       if(!sValueGC) { 
         sValueGC = 1; 
@@ -144,8 +172,6 @@ function loadLibraries(index) {
 
       DATA = DATA.slice(startIndexGC, startIndexGC + itemsPerPageGC);
 
-      var currentUrl = window.location.href;
-
 
       if(sValueGC == 1) {
         $("#gc-prev").prop('disabled', true);
@@ -159,34 +185,24 @@ function loadLibraries(index) {
 
       $(document).on("click", ".fab-container .sub-button", function(){
         var updatedUrlGC =  currentUrl;
-        var pn;
+        var pn, updatedUrl;
         switch($(this).attr("id")) {
           case "gc-user-role":
-            var urlParams = new URLSearchParams(new URL(currentUrl).search);
-            urlParams.forEach(function(value, key) {
-                urlParams.delete(key);
-            });
-
-            var updatedUrl = new URL(currentUrl);
-            updatedUrl.search = '';
-            updatedUrlGC = updatedUrl.href;
+          updatedUrl = removeQueryParams(currentUrl);
+            updatedUrlGC = updatedUrl;
             if(!rValueGC) { 
               updatedUrlGC = updatedUrlGC + "?r=d";
             }
             break;
           case "gc-next":
             pn = +(sValueGC) + 1;
-            urlParamsGC.set('p', pn++);
-
-            updatedUrlGC = new URL(currentUrl);
-            updatedUrlGC.search = urlParamsGC.toString();
+            updatedUrl = removeQueryParams(currentUrl);
+            updatedUrlGC = updatedUrl + "?p=" + pn++;
             break;
           case "gc-prev":
             pn = +(sValueGC) - 1;
-            urlParamsGC.set('p', pn);
-
-            updatedUrlGC = new URL(currentUrl);
-            updatedUrlGC.search = urlParamsGC.toString();
+            updatedUrl = removeQueryParams(currentUrl);
+            updatedUrlGC = updatedUrl + "?p=" + pn--;
             break;
           default:
             break;
@@ -394,7 +410,8 @@ function loadLibraries(index) {
     })(window);
   
 }).call(this);
-        });
+
+            });
     }
 }
 
