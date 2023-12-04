@@ -23,7 +23,7 @@ function loadLibraries(index) {
     } else {
         // All libraries are loaded, your code using libraries can go here
         $(document).ready(function() {
-            console.log("$", window.jQuery);
+            
             (function() {
     (function() {
       var ANIM_DELAY, ANIM_DURATION, BAR_HEIGHT, COLORS, COLORS_G, DATA, H, INITIAL_WIDTH, M, MAX_VALUE, NAME, TOTAL_VALUE, W, container, g, highlight, highlightClear, host, oH, oW, percentScale, randomize, resize, svg, update, xScale, yScale;
@@ -145,7 +145,7 @@ function loadLibraries(index) {
       DATA = DATA.slice(startIndexGC, startIndexGC + itemsPerPageGC);
 
       var currentUrl = window.location.href;
-
+console.log(currentUrl);
 
       if(sValueGC == 1) {
         $("#gc-prev").prop('disabled', true);
@@ -159,6 +159,7 @@ function loadLibraries(index) {
 
       $(document).on("click", ".fab-container .sub-button", function(){
         var updatedUrlGC =  currentUrl;
+          console.log(updatedUrlGC);
         var pn;
         switch($(this).attr("id")) {
           case "gc-user-role":
@@ -191,8 +192,8 @@ function loadLibraries(index) {
           default:
             break;
         }
-
-        window.location.href = updatedUrlGC;
+console.log(updatedUrlGC);
+        //window.location.href = updatedUrlGC;
       });
       
       
