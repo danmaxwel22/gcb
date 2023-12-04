@@ -28,11 +28,14 @@ function loadLibraries(index) {
       console.log(urlParts)
     
     if (urlParts.length > 1) {
-        var queryParams = urlParts[1].split('&');
-console.log("queryParams": + queryParams)
+        var queryParams = urlParts;
+      console.log(queryParams.length)
+        console.log(queryParams[0])
+        console.log(queryParams[1])
+        console.log(queryParams[2])
         for (var i = 0; i < queryParams.length; i++) {
             var param = queryParams[i].split('=');
-            console.log("param: " + param)
+            console.log("param: " + param[0])
             if (param[0] === paramName) {
                 console.log("decodeURIComponent: " + decodeURIComponent(param[1]))
                 return decodeURIComponent(param[1]);
@@ -40,6 +43,7 @@ console.log("queryParams": + queryParams)
             }
         }
     }
+      console.log("nullis")
     return null;
 }
 
