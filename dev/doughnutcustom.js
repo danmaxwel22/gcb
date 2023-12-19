@@ -237,4 +237,4 @@
 
       return $this;
     };
-  })(jQuery);
+  })($);
