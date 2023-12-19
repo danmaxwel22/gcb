@@ -66,7 +66,7 @@ function loadLibraries(index) {
       
         function sheetReader(member, coolors) {
           return new Promise((resolve, reject) => {
-            fetch('assets/test.xlsx')
+            fetch('data.xlsx')
               .then(response => response.blob())
               .then(data => {
                 var reader = new FileReader();
