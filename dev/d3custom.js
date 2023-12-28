@@ -25,9 +25,8 @@ function loadLibraries(index) {
     } else {
     
       $(function() {
-        console.log('loaded')
-        setInterval(function () {
-          console.log('removedloader')
+      
+        setTimeout(function () {
           $(".loader").hide();
           $(".loader-overlay").hide();
         }, 1000);
