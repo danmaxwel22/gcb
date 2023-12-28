@@ -493,7 +493,12 @@ function loadLibraries(index) {
                       modal.show();
           
                       $(document).on('hidden.bs.modal', '#defaultModal', () => { 
-                        $(".chart").remove();
+                        $(document).on('hidden.bs.modal', '#defaultModal', () => { 
+                          $(".chart").remove();
+                          $(".doughnutTip").each(function(){
+                            $(this).css('display', 'none')
+                          });
+                        }) 
                       }) 
                     })
                     .catch(error => {
