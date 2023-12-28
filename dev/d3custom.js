@@ -27,9 +27,10 @@ function loadLibraries(index) {
       $(function() {
 
         setInterval(function () {
+          console.log('removedloader')
           $(".loader").hide();
           $(".loader-overlay").hide();
-        }, 700);
+        }, 1000);
 
         function getParameterValue(url, paramName) {
             var urlParts = url.split('?');
