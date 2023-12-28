@@ -31,117 +31,117 @@ function loadLibraries(index) {
 
         
         function changeBG () {
-            var bg = $(".slick-list").find(".slick-active.slick-center div").css('background-image').match(/url\(['"]?(.*?)['"]?\)/)[1];
-            $('#dashboard').css('background', `url(${bg}) center/cover no-repeat`);
+        var bg = $(".slick-list").find(".slick-active.slick-center div").css('background-image').match(/url\(['"]?(.*?)['"]?\)/)[1];
+        $('#dashboard').css('background', `url(${bg}) center/cover no-repeat`);
         }
         
         function slideTrigger(el) {
-            el.addClass('slick-anmt');
-            setTimeout(function() {
-                el.removeClass('slick-anmt');
-            }, 500);
+        el.addClass('slick-anmt');
+        setTimeout(function() {
+            el.removeClass('slick-anmt');
+        }, 200);
         }
         
         var options = {
-            infinite: true,
-            centerMode: true,
-            centerPadding: '150px',
-            slidesToShow: 3,
-            speed: 1000,
-            autoplay: true,
-            autoplaySpeed: 30000,
+        infinite: true,
+        centerMode: true,
+        centerPadding: '140px',
+        slidesToShow: 3,
+        speed: 1000,
+        autoplay: true,
+        autoplaySpeed: 30000,
         
-            responsive: [
+        responsive: [
             {
-                breakpoint: 768,
-                settings: {
+            breakpoint: 768,
+            settings: {
                 arrows: false,
                 centerMode: true,
                 centerPadding: '40px',
                 slidesToShow: 3
-                }
+            }
             },
             {
-                breakpoint: 480,
-                settings: {
+            breakpoint: 480,
+            settings: {
                 arrows: false,
                 centerMode: true,
                 centerPadding: '40px',
                 slidesToShow: 1
-                }
             }
-            ]
+            }
+        ]
         };
         
         $('.slick-gc').slick(options).on('swipe', function(event, slick, direction){
-            changeBG();
+        changeBG();
         }).on('afterChange', function(event, slick, currentSlide, nextSlide){
-            changeBG();
-            slideTrigger($('.slick-next'))
+        changeBG();
+        slideTrigger($('.slick-next'))
         })
         
         $(document).keydown(function (event) {
-            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-                $('.slick-gc').slick('slickNext');
-                slideTrigger($('.slick-next'))
-            }
-            else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-                $('.slick-gc').slick('slickPrev');
-                slideTrigger($('.slick-prev'))
-            }
-            });
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+            $('.slick-gc').slick('slickNext');
+            slideTrigger($('.slick-next'))
+        }
+        else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            $('.slick-gc').slick('slickPrev');
+            slideTrigger($('.slick-prev'))
+        }
+        });
         
         function throttle(func, limit) {
-            var inThrottle;
-            return function() {
+        var inThrottle;
+        return function() {
             if (!inThrottle) {
-                func.apply(this, arguments);
-                inThrottle = true;
-                setTimeout(function() {
+            func.apply(this, arguments);
+            inThrottle = true;
+            setTimeout(function() {
                 inThrottle = false;
-                }, limit);
+            }, limit);
             }
-            };
+        };
         }
         
         // Throttled wheel handler
         var throttledWheel = throttle(function (event) {
-            var delta;
+        var delta;
         
-            if (event.originalEvent.wheelDelta !== undefined) {
+        if (event.originalEvent.wheelDelta !== undefined) {
             // For older browsers (e.g., IE)
             delta = event.originalEvent.wheelDelta;
-            } else {
+        } else {
             // For modern browsers
             delta = -event.originalEvent.deltaY;
-            }
+        }
         
-            if (delta > 0) {
+        if (delta > 0) {
+            $('.slick-gc').slick('slickPrev');
+            slideTrigger($('.slick-prev'))
+        } else {
+            $('.slick-gc').slick('slickNext');
+            slideTrigger($('.slick-next'))
+        }
+        }, 200);
+        
+        var throttledMouseMove = throttle(function (event) {
+        var sectionWidth = $(this).width();
+        var mouseX = event.pageX - $(this).offset().left;
+        var distanceFromCenter = Math.abs(mouseX - sectionWidth / 2);
+        var slickcenter = +($('.slick-slide.slick-active').width())
+        
+        // Avoid logging when the mouse is within 400 pixels from the center
+        if (distanceFromCenter > slickcenter) {
+            if (mouseX < sectionWidth / 2) {
             $('.slick-gc').slick('slickPrev');
             slideTrigger($('.slick-prev'))
             } else {
             $('.slick-gc').slick('slickNext');
             slideTrigger($('.slick-next'))
             }
-        }, 200);
-        
-        var throttledMouseMove = throttle(function (event) {
-            var sectionWidth = $(this).width();
-            var mouseX = event.pageX - $(this).offset().left;
-            var distanceFromCenter = Math.abs(mouseX - sectionWidth / 2);
-            var slickcenter = +($('.slick-slide.slick-active').width())
-        
-            // Avoid logging when the mouse is within 400 pixels from the center
-            if (distanceFromCenter > slickcenter) {
-            if (mouseX < sectionWidth / 2) {
-                $('.slick-gc').slick('slickPrev');
-                slideTrigger($('.slick-prev'))
-            } else {
-                $('.slick-gc').slick('slickNext');
-                slideTrigger($('.slick-next'))
-            }
-            }
-        }, 500); 
+        }
+        }, 1000); 
         
         $('body').on('wheel', throttledWheel);
         $('.slick-gc').on('mousemove', throttledMouseMove);
@@ -158,19 +158,19 @@ function loadLibraries(index) {
                 var char = String.fromCharCode(keyCode);
                 
                 if(keyCode === 8) {
-                    charList = charList.substring(0, charList.length - 1);
+                charList = charList.substring(0, charList.length - 1);
                 } else {
-                    charList = charList + char;
+                charList = charList + char;
                 }
         
                 swal({
                     title: charList,
-                    timer: 1200,
+                    timer: 1100,
                     buttons: false
                 });
         
                 clearTimeout(timeoutId);
-                timeoutId = setTimeout(resetCharList, 1100);
+                timeoutId = setTimeout(resetCharList, 1000);
             }
         });
         
@@ -191,9 +191,9 @@ function loadLibraries(index) {
         
         $(document).on('click', '.slick-slide div', function(){
             var slideLink = $(this).data('link');
-        
+            
             if(slideLink) {
-            window.open(slideLink, '_blank');
+                window.open(slideLink, '_blank');
             }
         });
       
