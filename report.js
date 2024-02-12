@@ -24,6 +24,7 @@ function loadLibraries(index) {
        $(function() {
 
           const dev = msg => { console.log(msg) }
+          dev("1")
           var id = "",
               val = "",
               ele = ""
