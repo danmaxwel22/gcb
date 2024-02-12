@@ -41,7 +41,7 @@ function loadLibraries(index) {
               }
               return true;
           }
-      
+          dev(isSupportedSessionStorage())
           const setSessionStorage = (ssName, ssValue) => {
               ssValue = JSON.stringify(ssValue)
               window.sessionStorage.setItem(ssName, ssValue);
