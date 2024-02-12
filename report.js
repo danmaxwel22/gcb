@@ -103,7 +103,7 @@ function loadLibraries(index) {
           if(isSupportedSessionStorage()) {
               if(isDarkMode) {
                   $("body, .modal").addClass("dark--theme")
-                  $("#darkmode-switcher img").attr("src", "assets/images/img/darkmode1.png")
+                  $("#darkmode-switcher img").attr("src", "https://s13.gifyu.com/images/SC5Ey.png")
               } else {
                   $("body, .modal").removeClass("dark--theme")
               }
@@ -277,7 +277,7 @@ function loadLibraries(index) {
               
               if(GcurrentSettings.darkmode == 1) {
                   $("body, .modal").addClass("dark--theme")
-                  $("#darkmode-switcher img").attr("src", "assets/images/img/darkmode1.png")
+                  $("#darkmode-switcher img").attr("src", "https://s13.gifyu.com/images/SC5Ey.png")
               } else {
                   $("body, .modal").removeClass("dark--theme");
                   $(".video-container").html(`<iframe src="https://www.youtube.com/embed/Y1BmjPeatI4?%20&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
@@ -512,7 +512,7 @@ function loadLibraries(index) {
               var currentSettings = getSessionStorage("test1.general.settings");
               if(currentSettings) {
                   $(".modal").toggleClass("dark--theme")
-                  ele.find("img").attr("src", darkModeImg == "assets/images/img/darkmode1.png" ? "assets/images/img/darkmode.png" : "assets/images/img/darkmode1.png")
+                  ele.find("img").attr("src", darkModeImg == "https://s13.gifyu.com/images/SC5Ey.png" ? "https://s13.gifyu.com/images/SC5EO.png" : "https://s13.gifyu.com/images/SC5Ey.png")
               }
           })
       
