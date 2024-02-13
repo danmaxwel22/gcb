@@ -808,20 +808,20 @@ function loadLibraries(index) {
               }
           })
       
-          var delay = 13000
-          let toastElement = document.querySelector('.toast');
-            let toast = new bootstrap.Toast(toastElement);
-
-            $(".toast").each( function(index){
-                delay = delay + 2000
-                $(this).toast({
-                    autohide: true,
-                    animation: true,
-                    delay: delay
-                });
+          var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+            var delay = 13000; // Initial delay
+            var toastList = toastElList.map(function(toastEl, index) {
+            delay += 2000; // Incrementing delay for each toast
+            return new bootstrap.Toast(toastEl, {
+                autohide: true,
+                animation: true,
+                delay: delay
+            });
             });
 
-            toast.show();
+            toastList.forEach(function(toast) {
+                toast.show();
+            });
       
       });    
     }
