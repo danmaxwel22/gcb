@@ -497,6 +497,7 @@ body.dark--theme #clipboard-report-gen .title-header span:last-child {
     width: 100vw;
     height: 100vh;
     visibility: hidden;
+    transform: scale(1.5);
 }
       
 iframe {

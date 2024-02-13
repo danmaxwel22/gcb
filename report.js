@@ -800,9 +800,11 @@ function loadLibraries(index) {
                   if($("#settingsTabNav").hasClass("dark--theme")) {
                       GcurrentSettings.darkmode = 1;
                       $("body").addClass("dark--theme")
+                      $(".video-container").html(`<iframe src="https://www.youtube.com/embed/lrf-GAYUOkQ? &controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
                   } else {
                       GcurrentSettings.darkmode = 0;
                       $("body").removeClass("dark--theme")
+                      $(".video-container").html(`<iframe src="https://www.youtube.com/embed/Y1BmjPeatI4?%20&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
                   }
                   setSessionStorage("test1.general.settings", GcurrentSettings )
               }
