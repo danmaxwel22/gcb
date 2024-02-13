@@ -812,7 +812,8 @@ function loadLibraries(index) {
                   var GcurrentSettings = getSessionStorage("test1.general.settings");
                   if($("#settingsTabNav").hasClass("dark--theme")) {
                       GcurrentSettings.darkmode = 1;
-                      $("body").addClass("dark--theme")
+                      $("body").addClass("dark--theme");
+                      $("img#logo-gcb").attr("src", "https://s13.gifyu.com/images/SC5wE.png");
                       $(".video-container").html(`<iframe src="https://www.youtube.com/embed/lrf-GAYUOkQ? &controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
                   } else {
                       GcurrentSettings.darkmode = 0;
