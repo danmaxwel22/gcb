@@ -818,3 +818,5 @@ function loadLibraries(index) {
       });    
     }
 }
+
+loadLibraries(0);
