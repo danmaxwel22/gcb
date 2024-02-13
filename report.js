@@ -243,7 +243,9 @@ function loadLibraries(index) {
                           break;
                       case "cb-role":
                           if(currentSettings.currentRole == "") {
-                              $("#myrole").modal("show");
+                            let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('myrole')) 
+                            modal.show();
+                            //   $("#myrole").modal("show");
                           } else {
                               var myRole = currentSettings.currentRole;
                               if(myRole == "Designer") {
@@ -301,7 +303,9 @@ function loadLibraries(index) {
                   } else {
                       document.getElementById('devops1').checked = true;
                   }
-                  $("#myrole").modal('hide');
+                  let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('myrole')) 
+                  modal.hide();
+                //   $("#myrole").modal('hide');
           })
       
           // $("#settingsTabNav").modal('show');
