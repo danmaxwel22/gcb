@@ -339,9 +339,14 @@ function loadLibraries(index) {
       
           $(document).on('focus', 'textarea', function(){
               var ele = $(this);
-      
-              ele.val() || ele.parent().find("textarea").length > 0 ? ele.siblings("label").css("color", "#27a599")
-                        : ele.siblings("label").css("color", "transparent")
+
+              if (ele.val() || ele.parent().find("textarea").length > 0) {
+                ele.siblings("label").css("color", "#27a599")
+                console.log("1")
+              } else {
+                console.log("2")
+                ele.siblings("label").css("color", "transparent")
+              }
           });
       
           $(document).on("input", ".gc-form .form-control", function(){  
