@@ -1,4 +1,3 @@
-console.log("msg1")
 function loadScript(src, callback) {
     var scriptElement = document.createElement('script');
     scriptElement.src = src;
@@ -21,12 +20,10 @@ function loadLibraries(index) {
             // Continue loading the next library
             loadLibraries(index + 1);
         });
-        console.log("msg")
     } else {
        $(function() {
 
           const dev = msg => { console.log(msg) }
-          dev("1")
           var id = "",
               val = "",
               ele = ""
@@ -514,8 +511,11 @@ function loadLibraries(index) {
               var darkModeImg = ele.find("img").attr("src");
               var currentSettings = getSessionStorage("test1.general.settings");
               if(currentSettings) {
+                dev("1")
                   $(".modal").toggleClass("dark--theme")
                   ele.find("img").attr("src", darkModeImg == "https://s13.gifyu.com/images/SC5Ey.png" ? "https://s13.gifyu.com/images/SC5EO.png" : "https://s13.gifyu.com/images/SC5Ey.png")
+              } else {
+                dev(ele.find("img").attr("src"))
               }
           })
       
