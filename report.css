@@ -162,6 +162,10 @@ button:focus, .btn:focus, button:active, .btn:active {
     transition: transform .1s ease-in-out;
 }
 
+header.top-header {
+    height: 7vh;
+}
+
 /* editor */
 
 .gc-gen {
@@ -552,6 +556,14 @@ iframe {
     .px-5 {
         padding-left: .2rem!important;
         padding-right: .2rem!important;
+    }
+
+    header.top-header {
+        height: 7.5vh;
+    }
+
+    body {
+        width: 115%;
     }
 
 }
