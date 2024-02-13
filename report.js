@@ -809,15 +809,19 @@ function loadLibraries(index) {
           })
       
           var delay = 13000
-          $(".toast").each( function(index){
-              delay = delay + 2000
-              $(".toast").eq(index).toast({
-                  autohide: true,
-                  animation: true,
-                  delay: delay
-              });
-          });
-          $(".toast").toast("show");
+          let toastElement = document.querySelector('.toast');
+            let toast = new bootstrap.Toast(toastElement);
+
+            $(".toast").each( function(index){
+                delay = delay + 2000
+                $(this).toast({
+                    autohide: true,
+                    animation: true,
+                    delay: delay
+                });
+            });
+
+            toast.show();
       
       });    
     }
