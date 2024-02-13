@@ -279,9 +279,10 @@ function loadLibraries(index) {
               
               if(GcurrentSettings.darkmode == 1) {
                   $("body, .modal").addClass("dark--theme")
-                  $("#darkmode-switcher img").attr("src", "https://s13.gifyu.com/images/SC5Ey.png")
+                  $("#darkmode-switcher img").attr("src", "https://s13.gifyu.com/images/SC5Ey.png");
               } else {
                   $("body, .modal").removeClass("dark--theme");
+                  $("img#logo-gcb").attr("src", "https://s13.gifyu.com/images/SC1j8.png");
                   $(".video-container").html(`<iframe src="https://www.youtube.com/embed/Y1BmjPeatI4?%20&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
               }
           }
@@ -300,9 +301,21 @@ function loadLibraries(index) {
                   setSessionStorage("test1.customization.settings", GcurrentSettings )
                   if(role == "Designer") {
                       document.getElementById('desops1').checked = true;
+                      $("#upsell, #gcb-upsells, #gcb-upsells-list, #reference-links, #gcb-reference, #gcb-reference-list").css("display", "none")
                   } else {
                       document.getElementById('devops1').checked = true;
+                      $("#upsell, #gcb-upsells, #gcb-upsells-list, #reference-links, #gcb-reference, #gcb-reference-list").css("display", "block")
                   }
+                $("#gcb-role").text(role + ": ");
+                $("select#role").find('option:first-child').prop('selected', true);
+                $('select#role option').each(function() {
+                    var option = $(this)
+                    if(option.data("type") != role && option.val() != "members") {
+                        option.hide();
+                    } else {
+                        option.show();
+                    }
+                });
                   let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('myrole')) 
                   modal.hide();
                 //   $("#myrole").modal('hide');
@@ -803,7 +816,8 @@ function loadLibraries(index) {
                       $(".video-container").html(`<iframe src="https://www.youtube.com/embed/lrf-GAYUOkQ? &controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
                   } else {
                       GcurrentSettings.darkmode = 0;
-                      $("body").removeClass("dark--theme")
+                      $("body").removeClass("dark--theme");
+                      $("img#logo-gcb").attr("src", "https://s13.gifyu.com/images/SC1j8.png");
                       $(".video-container").html(`<iframe src="https://www.youtube.com/embed/Y1BmjPeatI4?%20&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
                   }
                   setSessionStorage("test1.general.settings", GcurrentSettings )

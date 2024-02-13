@@ -147,14 +147,14 @@ button:focus, .btn:focus, button:active, .btn:active {
 }
 
 .top-header .menus li {
-    color: #fff;
+    color: #999;
 }
 
 .top-header .menus li a {
     font-size: 11px;
     text-transform: uppercase;
     font-weight: 600;
-    color: #fff;
+    color: #999;
 }
 
 .top-header .menus li:hover {
@@ -416,7 +416,9 @@ header.top-header {
 .modal.dark--theme .modal-title,
 .modal.dark--theme .nav-pills .nav-link,
 .modal.dark--theme .close-save,
-.modal.dark--theme .settings--item {
+.modal.dark--theme .settings--item,
+body.dark--theme .top-header .menus li, body.dark--theme .top-header .menus li a,
+body.dark--theme .clipboard:hover p {
     color: var(--white) !important;
 }
 
@@ -461,10 +463,6 @@ body.dark--theme .gc-form .form-control {
 
 body.dark--theme select option {
     background: rgba(13, 27, 42, 0.95);
-}
-
-body.dark--theme .clipboard:hover p {
-    color: var(--white);
 }
 
 body.dark--theme .clipboard p, body.dark--theme .clipboard span {
