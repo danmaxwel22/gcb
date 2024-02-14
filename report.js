@@ -289,6 +289,7 @@ function loadLibraries(index) {
 
               if(GcurrentSettings.vidBG == 0) {
                   $(".video-container").remove();
+                  document.getElementById('vid-bg').checked = true;
               }
           }
       
@@ -792,6 +793,7 @@ function loadLibraries(index) {
                                       var valR = radios[i].value;
                                       if(currentSettings.currentRole != valR) {
                                           currentSettings.currentRole = valR;
+                                          console.log(valR)
                                           if(valR == "Designer") {
                                               $("#upsell, #gcb-upsells, #gcb-upsells-list, #reference-links, #gcb-reference, #gcb-reference-list").css("display", "none")
                                           } else {
