@@ -816,17 +816,20 @@ function loadLibraries(index) {
       
               if(getSessionStorage("test1.general.settings")) {
                   var GcurrentSettings = getSessionStorage("test1.general.settings");
-                  if($("#settingsTabNav").hasClass("dark--theme")) {
-                      GcurrentSettings.darkmode = 1;
-                      $("body").addClass("dark--theme");
-                      $("img#logo-gcb").attr("src", "https://s13.gifyu.com/images/SC5wE.png");
-                      $(".video-container").html(`<iframe src="https://www.youtube.com/embed/lrf-GAYUOkQ? &controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
-                  } else {
-                      GcurrentSettings.darkmode = 0;
-                      $("body").removeClass("dark--theme");
-                      $("img#logo-gcb").attr("src", "https://s13.gifyu.com/images/SC1j8.png");
-                      $(".video-container").html(`<iframe src="https://www.youtube.com/embed/Y1BmjPeatI4?%20&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
+                  if(($("#settingsTabNav").hasClass("dark--theme") && GcurrentSettings.darkmode != 1) || !$("#settingsTabNav").hasClass("dark--theme") && GcurrentSettings.darkmode == 1) {
+                    if($("#settingsTabNav").hasClass("dark--theme")) {
+                        GcurrentSettings.darkmode = 1;
+                        $("body").addClass("dark--theme");
+                        $("img#logo-gcb").attr("src", "https://s13.gifyu.com/images/SC5wE.png");
+                        $(".video-container").html(`<iframe src="https://www.youtube.com/embed/lrf-GAYUOkQ?&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
+                    } else {
+                        GcurrentSettings.darkmode = 0;
+                        $("body").removeClass("dark--theme");
+                        $("img#logo-gcb").attr("src", "https://s13.gifyu.com/images/SC1j8.png");
+                        $(".video-container").html(`<iframe src="https://www.youtube.com/embed/Y1BmjPeatI4?&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
+                    }
                   }
+                  
                   setSessionStorage("test1.general.settings", GcurrentSettings )
               }
           })
