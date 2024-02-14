@@ -85,6 +85,7 @@ function loadLibraries(index) {
           const gcbSettingsGeneral = {
       
               "darkmode": 1,
+              "vidBG": 1,
       
           }
       
@@ -284,6 +285,10 @@ function loadLibraries(index) {
                   $("body, .modal").removeClass("dark--theme");
                   $("img#logo-gcb").attr("src", "https://s13.gifyu.com/images/SC1j8.png");
                   $(".video-container").html(`<iframe src="https://www.youtube.com/embed/Y1BmjPeatI4?%20&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
+              }
+
+              if(GcurrentSettings.vidBG == 0) {
+                  $(".video-container").remove();
               }
           }
       
@@ -829,8 +834,17 @@ function loadLibraries(index) {
                         $(".video-container").html(`<iframe src="https://www.youtube.com/embed/Y1BmjPeatI4?&controls=0&autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>`);
                     }
                   }
+                  var doRestart = GcurrentSettings.vidBG;
+                  if($("#vid-bg").is(':checked')) {
+                    GcurrentSettings.vidBG = 0;
+                  } else {
+                    GcurrentSettings.vidBG = 1;
+                  }
                   
                   setSessionStorage("test1.general.settings", GcurrentSettings )
+                  if($("#vid-bg").is(':checked') && doRestart == 1) {
+                    window.location.reload();
+                  }
               }
           })
       
