@@ -36,6 +36,12 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     background-size: cover;
 }
 
+br {
+    display: block; 
+    content: "";
+    margin-top: 0;
+}
+
 /* custom defaults */
 
 .text-white {
