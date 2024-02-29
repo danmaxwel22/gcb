@@ -244,10 +244,12 @@ function loadLibraries(index) {
                           break;
                       case "cb-role":
                           if(currentSettings.currentRole == "") {
+                              dev("1: " + currentSettings.currentRole)
                             let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('myrole')) 
                             modal.show();
                             //   $("#myrole").modal("show");
                           } else {
+                              dev("2: " + currentSettings.currentRole)
                               var myRole = currentSettings.currentRole;
                               if(myRole == "Designer") {
                                   document.getElementById('desops1').checked = true;
